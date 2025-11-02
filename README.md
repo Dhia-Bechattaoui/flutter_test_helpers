@@ -155,25 +155,25 @@ The package includes a comprehensive example app demonstrating all features. Eac
 
 ### Color Extensions
 
-![Color Extensions](https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/color-extensions.gif)
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/color-extensions.gif" alt="Color Extensions" width="300" />
 
 Demonstrates color manipulation utilities including lightening, darkening, saturation, and contrast color calculation.
 
 ### String Extensions
 
-![String Extensions](https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/string-extensions.gif)
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/string-extensions.gif" alt="String Extensions" width="300" />
 
 Shows various string utilities like capitalization, title case, truncation, email/URL validation, and string reversal.
 
 ### DateTime Extensions
 
-![DateTime Extensions](https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/datetime-extensions.gif)
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/datetime-extensions.gif" alt="DateTime Extensions" width="300" />
 
 Displays date and time boundary calculations such as start/end of day, week, month, and year, plus relative time formatting.
 
 ### List Extensions
 
-![List Extensions](https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/list-extensions.gif)
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/list-extensions.gif" alt="List Extensions" width="300" />
 
 Demonstrates list manipulation operations including random element selection, shuffling, null-safe accessors, and index filtering.
 
