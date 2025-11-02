@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.7] - 2025-01-15
+
+### Fixed
+- Reduced topics count to 5 maximum as required by pub.dev
+- Fixed README GIF image paths to use GitHub raw URLs for pub.dev compatibility
+- Resized README GIFs to phone-friendly width (300px) for better mobile viewing
+
+### Added
+- Added assets/gifs directory with all extension demonstration GIFs
+
 ## [0.0.6] - 2025-11-02
 
 ### Fixed
