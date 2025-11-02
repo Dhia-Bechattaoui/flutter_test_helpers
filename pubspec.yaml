@@ -11,9 +11,6 @@ topics:
   - test-utilities
   - widget-testing
   - flutter
-  - dart
-  - wasm
-  - cross-platform
 
 environment:
   sdk: '>=3.8.0 <4.0.0'
