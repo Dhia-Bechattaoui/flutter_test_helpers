@@ -1,5 +1,3 @@
-library flutter_test_helpers.src.widget_testing_helpers;
-
 import 'package:flutter/material.dart';
 
 /// Widget testing helpers and extensions

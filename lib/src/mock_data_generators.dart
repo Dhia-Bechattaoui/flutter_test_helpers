@@ -1,5 +1,3 @@
-library flutter_test_helpers.src.mock_data_generators;
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';

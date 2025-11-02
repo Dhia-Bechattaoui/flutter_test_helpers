@@ -1,5 +1,3 @@
-library flutter_test_helpers.src.extensions;
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
