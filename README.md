@@ -1,8 +1,8 @@
 # flutter_test_helpers
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_test_helpers)](https://pub.dev/packages/flutter_test_helpers)
-[![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.10.0-blue.svg)](https://flutter.dev/)
-[![Dart Version](https://img.shields.io/badge/dart-%3E%3D3.0.0-blue.svg)](https://dart.dev/)
+[![Flutter Version](https://img.shields.io/badge/flutter-%3E%3D3.32.0-blue.svg)](https://flutter.dev/)
+[![Dart Version](https://img.shields.io/badge/dart-%3E%3D3.8.0-blue.svg)](https://dart.dev/)
 [![Platform Support](https://img.shields.io/badge/platforms-iOS%20%7C%20Android%20%7C%20Web%20%7C%20Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://flutter.dev/multi-platform)
 [![WASM Compatible](https://img.shields.io/badge/WASM-Compatible-green.svg)](https://dart.dev/wasm)
 
@@ -16,7 +16,7 @@ A comprehensive Flutter package providing mock data generators, test utilities, 
 - 🔧 **Extensions**: Useful extensions for common Flutter types (Color, String, DateTime, List)
 - 🌍 **Multi-Platform Support**: Supports all 6 platforms (iOS, Android, Web, Windows, macOS, Linux)
 - ⚡ **WASM Compatible**: Ready for Flutter WebAssembly
-- 📱 **Flutter 3.10+**: Built with the latest Flutter features
+- 📱 **Flutter 3.32+**: Built with the latest Flutter features
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ Add `flutter_test_helpers` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_test_helpers: ^0.0.5
+  flutter_test_helpers: ^0.0.6
 ```
 
 ### Import
@@ -149,6 +149,34 @@ final shuffled = [1, 2, 3, 4, 5].shuffled;
 final firstOrNull = [].firstOrNull; // null
 ```
 
+## Example App
+
+The package includes a comprehensive example app demonstrating all features. Each feature category has its own screen for easy exploration and screenshot capture:
+
+### Color Extensions
+
+![Color Extensions](assets/gifs/color-extensions.gif)
+
+Demonstrates color manipulation utilities including lightening, darkening, saturation, and contrast color calculation.
+
+### String Extensions
+
+![String Extensions](assets/gifs/string-extensions.gif)
+
+Shows various string utilities like capitalization, title case, truncation, email/URL validation, and string reversal.
+
+### DateTime Extensions
+
+![DateTime Extensions](assets/gifs/datetime-extensions.gif)
+
+Displays date and time boundary calculations such as start/end of day, week, month, and year, plus relative time formatting.
+
+### List Extensions
+
+![List Extensions](assets/gifs/list-extensions.gif)
+
+Demonstrates list manipulation operations including random element selection, shuffling, null-safe accessors, and index filtering.
+
 ### WidgetTester Extensions
 
 Use convenient extensions on WidgetTester:
@@ -245,8 +273,8 @@ This package supports all Flutter platforms:
 
 ## Requirements
 
-- **Flutter**: >=3.10.0
-- **Dart**: >=3.0.0
+- **Flutter**: >=3.32.0
+- **Dart**: >=3.8.0
 - **Flutter Test**: Included in Flutter SDK
 
 ## Contributing

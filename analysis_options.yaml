@@ -105,4 +105,3 @@ linter:
     - use_build_context_synchronously
     - use_key_in_widget_constructors
     - use_super_parameters
-    - use_super_parameters

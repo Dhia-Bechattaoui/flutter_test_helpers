@@ -5,7 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.5] - 2025-01-27
+## [Unreleased]
+
+## [0.0.6] - 2025-11-02
+
+### Fixed
+- Fixed random number generation in MockDataGenerators to use proper Random instance instead of DateTime, resolving issue where randomStringList generated identical strings
+- Fixed List.random extension to use proper Random instance instead of DateTime milliseconds
+- Removed duplicate removeWhereAll method that was just calling removeWhere
+- Added missing import for dart:math in extensions.dart
+- Fixed line length issues to comply with 80-character limit across all files
+
+### Changed
+- Prevented instantiation of MockDataGenerators and WidgetTestingHelpers classes (they only contain static methods)
+- Sorted exports alphabetically in flutter_test_helpers.dart main export file
+- Restructured example app into separate screens for each feature category, enabling easier screenshot capture
+- Replaced Material Icons with emojis and text characters in example app for better cross-platform compatibility and icon visibility
+
+### Removed
+- Removed lib/main.dart file (should not exist in a library package)
+
+## [0.0.5] - 2025-09-27
 
 ### Fixed
 - Fixed DateTime extension methods to properly handle microseconds for endOfDay, endOfMonth, and endOfYear

@@ -84,9 +84,5 @@ coverage/
 *.freezed.dart
 *.mocks.dart
 
-# Test files
-test_*.dart
-*_test.dart
-
 # Build runner
 build/

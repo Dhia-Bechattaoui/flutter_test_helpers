@@ -1,3 +1,7 @@
+library flutter_test_helpers.src.extensions;
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 /// Extension methods for common Flutter types
@@ -6,8 +10,9 @@ extension ColorExtensions on Color {
   Color lighten([double amount = 0.1]) {
     assert(amount >= 0 && amount <= 1);
     final HSLColor hsl = HSLColor.fromColor(this);
-    final HSLColor lighterHsl =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final HSLColor lighterHsl = hsl.withLightness(
+      (hsl.lightness + amount).clamp(0.0, 1.0),
+    );
     return lighterHsl.toColor();
   }
 
@@ -15,8 +20,9 @@ extension ColorExtensions on Color {
   Color darken([double amount = 0.1]) {
     assert(amount >= 0 && amount <= 1);
     final HSLColor hsl = HSLColor.fromColor(this);
-    final HSLColor darkerHsl =
-        hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+    final HSLColor darkerHsl = hsl.withLightness(
+      (hsl.lightness - amount).clamp(0.0, 1.0),
+    );
     return darkerHsl.toColor();
   }
 
@@ -24,8 +30,9 @@ extension ColorExtensions on Color {
   Color saturate([double amount = 0.1]) {
     assert(amount >= 0 && amount <= 1);
     final HSLColor hsl = HSLColor.fromColor(this);
-    final HSLColor saturatedHsl =
-        hsl.withSaturation((hsl.saturation + amount).clamp(0.0, 1.0));
+    final HSLColor saturatedHsl = hsl.withSaturation(
+      (hsl.saturation + amount).clamp(0.0, 1.0),
+    );
     return saturatedHsl.toColor();
   }
 
@@ -33,8 +40,9 @@ extension ColorExtensions on Color {
   Color desaturate([double amount = 0.1]) {
     assert(amount >= 0 && amount <= 1);
     final HSLColor hsl = HSLColor.fromColor(this);
-    final HSLColor desaturatedHsl =
-        hsl.withSaturation((hsl.saturation - amount).clamp(0.0, 1.0));
+    final HSLColor desaturatedHsl = hsl.withSaturation(
+      (hsl.saturation - amount).clamp(0.0, 1.0),
+    );
     return desaturatedHsl.toColor();
   }
 
@@ -46,7 +54,10 @@ extension ColorExtensions on Color {
 
   /// Converts the color to a hex string
   String toHex() {
-    return '#${(r * 255).round().toRadixString(16).padLeft(2, '0')}${(g * 255).round().toRadixString(16).padLeft(2, '0')}${(b * 255).round().toRadixString(16).padLeft(2, '0')}';
+    final rHex = (r * 255).round().toRadixString(16).padLeft(2, '0');
+    final gHex = (g * 255).round().toRadixString(16).padLeft(2, '0');
+    final bHex = (b * 255).round().toRadixString(16).padLeft(2, '0');
+    return '#$rHex$gHex$bHex';
   }
 }
 
@@ -93,14 +104,10 @@ extension StringExtensions on String {
   }
 
   /// Removes all whitespace from the string
-  String get removeWhitespace {
-    return replaceAll(RegExp(r'\s+'), '');
-  }
+  String get removeWhitespace => replaceAll(RegExp(r'\s+'), '');
 
   /// Reverses the string
-  String get reversed {
-    return split('').reversed.join('');
-  }
+  String get reversed => split('').reversed.join('');
 }
 
 /// Extension methods for DateTime
@@ -128,14 +135,10 @@ extension DateTimeExtensions on DateTime {
   }
 
   /// Gets the start of the day (00:00:00)
-  DateTime get startOfDay {
-    return DateTime(year, month, day);
-  }
+  DateTime get startOfDay => DateTime(year, month, day);
 
   /// Gets the end of the day (23:59:59)
-  DateTime get endOfDay {
-    return DateTime(year, month, day, 23, 59, 59, 999, 999);
-  }
+  DateTime get endOfDay => DateTime(year, month, day, 23, 59, 59, 999, 999);
 
   /// Gets the start of the week (Monday)
   DateTime get startOfWeek {
@@ -150,24 +153,16 @@ extension DateTimeExtensions on DateTime {
   }
 
   /// Gets the start of the month
-  DateTime get startOfMonth {
-    return DateTime(year, month, 1);
-  }
+  DateTime get startOfMonth => DateTime(year, month, 1);
 
   /// Gets the end of the month
-  DateTime get endOfMonth {
-    return DateTime(year, month + 1, 0, 23, 59, 59, 999, 999);
-  }
+  DateTime get endOfMonth => DateTime(year, month + 1, 0, 23, 59, 59, 999, 999);
 
   /// Gets the start of the year
-  DateTime get startOfYear {
-    return DateTime(year, 1, 1);
-  }
+  DateTime get startOfYear => DateTime(year, 1, 1);
 
   /// Gets the end of the year
-  DateTime get endOfYear {
-    return DateTime(year, 12, 31, 23, 59, 59, 999, 999);
-  }
+  DateTime get endOfYear => DateTime(year, 12, 31, 23, 59, 59, 999, 999);
 
   /// Formats the date as a relative time string
   String get relativeTime {
@@ -177,9 +172,11 @@ extension DateTimeExtensions on DateTime {
     if (difference.inDays > 0) {
       return '${difference.inDays} day${difference.inDays == 1 ? '' : 's'} ago';
     } else if (difference.inHours > 0) {
-      return '${difference.inHours} hour${difference.inHours == 1 ? '' : 's'} ago';
+      final hours = difference.inHours;
+      return '$hours hour${hours == 1 ? '' : 's'} ago';
     } else if (difference.inMinutes > 0) {
-      return '${difference.inMinutes} minute${difference.inMinutes == 1 ? '' : 's'} ago';
+      final minutes = difference.inMinutes;
+      return '$minutes minute${minutes == 1 ? '' : 's'} ago';
     } else {
       return 'Just now';
     }
@@ -193,8 +190,8 @@ extension ListExtensions<T> on List<T> {
     if (isEmpty) {
       return null;
     }
-    final int random = DateTime.now().millisecondsSinceEpoch;
-    return this[random % length];
+    final Random random = Random();
+    return this[random.nextInt(length)];
   }
 
   /// Shuffles the list and returns a new shuffled list
@@ -217,26 +214,15 @@ extension ListExtensions<T> on List<T> {
     }
   }
 
-  /// Removes all elements that match the condition
-  void removeWhereAll(bool Function(T) test) {
-    removeWhere(test);
-  }
-
   /// Gets elements at even indices
-  List<T> get evenIndices {
-    return asMap()
-        .entries
-        .where((MapEntry<int, T> entry) => entry.key.isEven)
-        .map((MapEntry<int, T> entry) => entry.value)
-        .toList();
-  }
+  List<T> get evenIndices => asMap().entries
+      .where((MapEntry<int, T> entry) => entry.key.isEven)
+      .map((MapEntry<int, T> entry) => entry.value)
+      .toList();
 
   /// Gets elements at odd indices
-  List<T> get oddIndices {
-    return asMap()
-        .entries
-        .where((MapEntry<int, T> entry) => entry.key.isOdd)
-        .map((MapEntry<int, T> entry) => entry.value)
-        .toList();
-  }
+  List<T> get oddIndices => asMap().entries
+      .where((MapEntry<int, T> entry) => entry.key.isOdd)
+      .map((MapEntry<int, T> entry) => entry.value)
+      .toList();
 }
