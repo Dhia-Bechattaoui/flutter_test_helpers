@@ -5,6 +5,8 @@ homepage: https://github.com/Dhia-Bechattaoui/flutter_test_helpers
 repository: https://github.com/Dhia-Bechattaoui/flutter_test_helpers
 issue_tracker: https://github.com/Dhia-Bechattaoui/flutter_test_helpers/issues
 documentation: https://pub.dev/packages/flutter_test_helpers
+funding:
+  - https://github.com/sponsors/Dhia-Bechattaoui
 topics:
   - testing
   - mock-data
