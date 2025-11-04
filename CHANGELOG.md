@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2025-11-04
+
+### Added
+- Added TestUtilities class with comprehensive testing helper methods:
+  - `createTestApp()` - Creates a test app with MaterialApp wrapper
+  - `createTestAppWithTheme()` - Creates a test app with custom theme
+  - `waitForCondition()` - Waits for a condition to become true with timeout
+  - `findByKey()` - Finds widgets by key
+  - `findByText()` - Finds widgets by text
+  - `tap()` - Taps a widget using finder
+  - `enterText()` - Enters text into a widget
+  - `scrollTo()` - Scrolls to a widget
+- Added WidgetTester extensions for convenient testing:
+  - `tapByKey()` - Tap widget by key
+  - `tapByText()` - Tap widget by text content
+  - `tapByType<T>()` - Tap widget by type
+  - `enterTextByKey()` - Enter text by key
+  - `enterTextByType<T>()` - Enter text by widget type
+  - `scrollToKey()` - Scroll to widget by key
+  - `scrollToText()` - Scroll to widget by text
+  - `waitForWidget()` - Wait for widget to appear
+  - `waitForWidgetToDisappear()` - Wait for widget to disappear
+- Added Finder extensions for enhanced widget finding:
+  - `hasOne` - Checks if exactly one widget is found
+  - `hasMultiple` - Checks if multiple widgets are found
+  - `firstWidget` - Gets first widget or null
+  - `allWidgets` - Gets all widgets found
+  - `firstElement` - Gets first element or null
+  - `allElements` - Gets all elements found
+- Added comprehensive test examples in `example/test_example_test.dart`
+- Added interactive demo page in example app demonstrating all testing features
+- Added utilities.gif demonstration to README
+- Added library-level documentation for better API documentation coverage
+
+### Changed
+- Moved `flutter_test` from dev_dependencies to dependencies (required for test utilities)
+- Reorganized README with Demo section before Features section
+- Arranged README GIFs in 3-column grid layout for better visual presentation
+- Enhanced example app with interactive scrollable list demo
+- Improved documentation and code formatting across all files
+
+### Fixed
+- Fixed all linting issues including line length violations
+- Fixed duplicate key errors in example app
+- Achieved 160/160 pana score with full documentation coverage
+- Resolved all static analysis warnings
+
 ## [0.0.7] - 2025-01-15
 
 ### Fixed

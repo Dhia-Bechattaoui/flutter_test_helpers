@@ -8,6 +8,60 @@
 
 A comprehensive Flutter package providing mock data generators, test utilities, and widget testing helpers to streamline your Flutter testing workflow.
 
+## Demo
+
+<table>
+<tr>
+<td width="33%">
+
+**Test Utilities & Helpers**
+
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/utilities.gif" alt="Test Utilities" width="100%" />
+
+Demonstrates test utilities, WidgetTester extensions, and Finder extensions for comprehensive widget testing.
+
+</td>
+<td width="33%">
+
+**Color Extensions**
+
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/color-extensions.gif" alt="Color Extensions" width="100%" />
+
+Demonstrates color manipulation utilities including lightening, darkening, saturation, and contrast color calculation.
+
+</td>
+<td width="33%">
+
+**String Extensions**
+
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/string-extensions.gif" alt="String Extensions" width="100%" />
+
+Shows various string utilities like capitalization, title case, truncation, email/URL validation, and string reversal.
+
+</td>
+</tr>
+<tr>
+<td width="33%">
+
+**DateTime Extensions**
+
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/datetime-extensions.gif" alt="DateTime Extensions" width="100%" />
+
+Displays date and time boundary calculations such as start/end of day, week, month, and year, plus relative time formatting.
+
+</td>
+<td width="33%">
+
+**List Extensions**
+
+<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/list-extensions.gif" alt="List Extensions" width="100%" />
+
+Demonstrates list manipulation operations including random element selection, shuffling, null-safe accessors, and index filtering.
+
+</td>
+</tr>
+</table>
+
 ## Features
 
 - 🎲 **Mock Data Generators**: Generate random test data for colors, strings, numbers, dates, and more
@@ -26,7 +80,7 @@ Add `flutter_test_helpers` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_test_helpers: ^0.0.6
+  flutter_test_helpers: ^0.1.0
 ```
 
 ### Import
@@ -148,34 +202,6 @@ final randomElement = [1, 2, 3, 4, 5].random;
 final shuffled = [1, 2, 3, 4, 5].shuffled;
 final firstOrNull = [].firstOrNull; // null
 ```
-
-## Example App
-
-The package includes a comprehensive example app demonstrating all features. Each feature category has its own screen for easy exploration and screenshot capture:
-
-### Color Extensions
-
-<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/color-extensions.gif" alt="Color Extensions" width="300" />
-
-Demonstrates color manipulation utilities including lightening, darkening, saturation, and contrast color calculation.
-
-### String Extensions
-
-<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/string-extensions.gif" alt="String Extensions" width="300" />
-
-Shows various string utilities like capitalization, title case, truncation, email/URL validation, and string reversal.
-
-### DateTime Extensions
-
-<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/datetime-extensions.gif" alt="DateTime Extensions" width="300" />
-
-Displays date and time boundary calculations such as start/end of day, week, month, and year, plus relative time formatting.
-
-### List Extensions
-
-<img src="https://raw.githubusercontent.com/Dhia-Bechattaoui/flutter_test_helpers/main/assets/gifs/list-extensions.gif" alt="List Extensions" width="300" />
-
-Demonstrates list manipulation operations including random element selection, shuffling, null-safe accessors, and index filtering.
 
 ### WidgetTester Extensions
 

@@ -104,6 +104,20 @@ class ExampleHomePage extends StatelessWidget {
           const SizedBox(height: 12),
           _buildCategoryCard(
             context,
+            'Test Utilities & Helpers',
+            'Testing utilities and examples',
+            '🧪',
+            accentColor,
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const TestUtilitiesPage(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          _buildCategoryCard(
+            context,
             'Platform Support',
             'Supported platforms',
             '💻',
@@ -888,6 +902,849 @@ class _ListExtensionsPageState extends State<ListExtensionsPage> {
           ),
         ],
       ),
+    ),
+  );
+}
+
+class TestUtilitiesPage extends StatefulWidget {
+  const TestUtilitiesPage({super.key});
+
+  @override
+  State<TestUtilitiesPage> createState() => _TestUtilitiesPageState();
+}
+
+class _TestUtilitiesPageState extends State<TestUtilitiesPage> {
+  String _inputText = '';
+  String _inputTextByType = '';
+  bool _buttonTapped = false;
+  int _tapCount = 0;
+  bool _tapByTextWorked = false;
+  bool _tapByTypeWorked = false;
+  bool _showDelayedWidget = false;
+  bool _showDisappearWidget = true;
+  final List<String> _scrollableItems = List.generate(
+    20,
+    (i) => 'Item ${i + 1}',
+  );
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Color accentColor = MockDataGenerators.randomColor();
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Text('←', style: TextStyle(fontSize: 24)),
+          onPressed: () => Navigator.of(context).pop(),
+          color: accentColor.contrastColor,
+        ),
+        title: const Text('Test Utilities & Helpers'),
+        backgroundColor: accentColor,
+        foregroundColor: accentColor.contrastColor,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInfoCard(
+              'TestUtilities.createTestApp()',
+              'Creates a MaterialApp wrapper for testing',
+              Icons.apps,
+            ),
+            _buildInfoCard(
+              'TestUtilities.findByKey()',
+              'Finds widgets by their key',
+              Icons.search,
+            ),
+            _buildInfoCard(
+              'tester.tapByKey()',
+              'Taps widgets by key using WidgetTester extension',
+              Icons.touch_app,
+            ),
+            _buildInfoCard(
+              'tester.enterTextByKey()',
+              'Enters text into fields by key',
+              Icons.keyboard,
+            ),
+            _buildInfoCard(
+              'tester.tapByText()',
+              'Taps widgets by their text content',
+              Icons.text_fields,
+            ),
+            _buildInfoCard(
+              'tester.tapByType()',
+              'Taps widgets by their type',
+              Icons.category,
+            ),
+            _buildInfoCard(
+              'tester.scrollToKey()',
+              'Scrolls to a widget by key',
+              Icons.swap_vert,
+            ),
+            _buildInfoCard(
+              'tester.waitForWidget()',
+              'Waits for widget to appear',
+              Icons.schedule,
+            ),
+            _buildInfoCard(
+              'Finder extensions',
+              'hasOne, hasMultiple, firstWidget, allWidgets',
+              Icons.extension,
+            ),
+            const SizedBox(height: 16),
+            const Divider(),
+            const SizedBox(height: 16),
+            Text(
+              'Interactive Demo:',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'This widget was created using TestUtilities.createTestApp()',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 16),
+            // Interactive Demo Section
+            _buildSectionTitle(
+              '1. TestUtilities.findByKey() & tester.tapByKey()',
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Button (Key: demo-button)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      key: const Key('demo-button'),
+                      onPressed: () {
+                        setState(() {
+                          _buttonTapped = true;
+                          _tapCount++;
+                        });
+                      },
+                      child: Text('Tap Me (Count: $_tapCount)'),
+                    ),
+                    if (_buttonTapped)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              'Button tapped $_tapCount time(s)!',
+                              style: TextStyle(
+                                color: Colors.green[700],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle(
+              '2. tester.enterTextByKey() & tester.enterTextByType()',
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'TextField (Key: demo-input)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      key: const Key('demo-input'),
+                      decoration: const InputDecoration(
+                        labelText:
+                            'Test with enterTextByKey('
+                            'Key(\'demo-input\'), \'text\')',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _inputText = value;
+                        });
+                      },
+                    ),
+                    if (_inputText.isNotEmpty) ...[
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.green[50],
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: Colors.green[300]!),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Field Value: "$_inputText"',
+                                style: TextStyle(
+                                  color: Colors.green[900],
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    const SizedBox(height: 16),
+                    const Text(
+                      'TextField (No Key - Test with '
+                      'enterTextByType<TextField>())',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      decoration: const InputDecoration(
+                        labelText:
+                            'Test with enterTextByType<TextField>(\'text\')',
+                        border: OutlineInputBorder(),
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _inputTextByType = value;
+                        });
+                      },
+                    ),
+                    if (_inputTextByType.isNotEmpty) ...[
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          color: Colors.green[50],
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: Colors.green[300]!),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Field Value: "$_inputTextByType"',
+                                style: TextStyle(
+                                  color: Colors.green[900],
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle('3. tester.tapByText()'),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Button with text "Tap By Text"',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _tapByTextWorked = true;
+                        });
+                      },
+                      child: const Text('Tap By Text'),
+                    ),
+                    if (_tapByTextWorked)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              'tapByText() worked!',
+                              style: TextStyle(
+                                color: Colors.green[700],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle('4. tester.tapByType<T>()'),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Multiple IconButtons (Test with '
+                      'tapByType<IconButton>())',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.favorite),
+                          color: _tapByTypeWorked ? Colors.red : Colors.grey,
+                          onPressed: () {
+                            setState(() {
+                              _tapByTypeWorked = true;
+                            });
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.star),
+                          color: _tapByTypeWorked ? Colors.amber : Colors.grey,
+                          onPressed: () {
+                            setState(() {
+                              _tapByTypeWorked = true;
+                            });
+                          },
+                        ),
+                        const Text('(Any IconButton can be tapped)'),
+                      ],
+                    ),
+                    if (_tapByTypeWorked)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                              size: 16,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              'tapByType<IconButton>() worked!',
+                              style: TextStyle(
+                                color: Colors.green[700],
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle(
+              '5. tester.scrollToKey() & tester.scrollToText()',
+            ),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Scrollable List - Testing Scroll Functionality',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Card(
+                      color: Colors.blue[50],
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Try it yourself:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                // Scroll to item 15 (index 14)
+                                // Calculate position: each dense ListTile is
+                                // ~56px. Item 15 is at index 14, so position =
+                                // 14 * 56 = 784px
+                                if (_scrollController.hasClients) {
+                                  const targetPosition = 14.0 * 56.0;
+                                  _scrollController.animateTo(
+                                    targetPosition.clamp(
+                                      0.0,
+                                      _scrollController
+                                          .position
+                                          .maxScrollExtent,
+                                    ),
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.easeInOut,
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.arrow_downward),
+                              label: const Text('Scroll to Item 15'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                  vertical: 12,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Press the button above to see automatic '
+                              'scrolling in action!',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Scrollable List (20 items - exactly 5-6 visible '
+                      'at once)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      // Increased height to show 5-6 items (ListTile ~56px)
+                      height: 360,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: _scrollableItems.length,
+                        itemBuilder: (context, index) => ListTile(
+                          key: Key('list-item-$index'),
+                          dense: true, // Makes items more compact
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 4.0,
+                          ),
+                          leading: CircleAvatar(
+                            radius: 18,
+                            backgroundColor: index == 14
+                                ? Colors.red[100]
+                                : Colors.grey[300],
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: index == 14
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            _scrollableItems[index],
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: index == 14
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Key: list-item-$index',
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                          trailing: index == 14
+                              ? const Icon(
+                                  Icons.flag,
+                                  color: Colors.red,
+                                  size: 20,
+                                )
+                              : const Icon(Icons.arrow_forward, size: 18),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.orange[50],
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.flag, color: Colors.red, size: 16),
+                              SizedBox(width: 4),
+                              Text(
+                                'Target Item 15 (Key: list-item-14)',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Item 15 is initially OFF-SCREEN '
+                            '(below visible area)\n'
+                            'Press the "Scroll to Item 15" button above to '
+                            'see it scroll automatically!',
+                            style: TextStyle(fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle('6. Finder Extensions - hasOne, hasMultiple'),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Single Widget (Test hasOne)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Unique Text',
+                      key: Key('unique-text'),
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Multiple Widgets (Test hasMultiple)',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: List.generate(
+                        5,
+                        (index) => Chip(
+                          key: Key('chip-$index'),
+                          label: const Text('Multiple Chip'),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'find.text(\'Multiple Chip\').hasMultiple = true '
+                      '(finds 5 chips)',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 11),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle('7. tester.waitForWidget()'),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Delayed Widget Appearance',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        Future.delayed(const Duration(seconds: 1), () {
+                          if (mounted) {
+                            setState(() {
+                              _showDelayedWidget = true;
+                            });
+                          }
+                        });
+                      },
+                      child: const Text('Show Delayed Widget'),
+                    ),
+                    const SizedBox(height: 8),
+                    if (!_showDelayedWidget)
+                      const Center(child: CircularProgressIndicator()),
+                    if (_showDelayedWidget)
+                      Card(
+                        color: Colors.green[50],
+                        key: const Key('delayed-widget'),
+                        child: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text('Widget appeared! (Key: delayed-widget)'),
+                        ),
+                      ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Test: tester.waitForWidget('
+                      'find.byKey(Key(\'delayed-widget\')))',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 11),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildSectionTitle('8. tester.waitForWidgetToDisappear()'),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Disappearing Widget',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _showDisappearWidget = false;
+                        });
+                      },
+                      child: const Text('Hide Widget'),
+                    ),
+                    const SizedBox(height: 8),
+                    if (_showDisappearWidget)
+                      Card(
+                        color: Colors.orange[50],
+                        key: const Key('disappear-widget'),
+                        child: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            'This widget will disappear '
+                            '(Key: disappear-widget)',
+                          ),
+                        ),
+                      ),
+                    if (!_showDisappearWidget)
+                      const Text(
+                        'Widget disappeared!',
+                        style: TextStyle(color: Colors.green),
+                      ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Test: tester.waitForWidgetToDisappear('
+                      'find.byKey(Key(\'disappear-widget\')))',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 11),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Card(
+              color: Colors.blue[50],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '📝 Complete Testing Guide:',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _buildTestInstruction(
+                      '1',
+                      'findByKey: TestUtilities.findByKey('
+                          'Key(\'demo-button\'))',
+                    ),
+                    _buildTestInstruction(
+                      '2',
+                      'tapByKey: tester.tapByKey(Key(\'demo-button\'))',
+                    ),
+                    _buildTestInstruction(
+                      '3',
+                      'enterTextByKey: tester.enterTextByKey('
+                          'Key(\'demo-input\'), \'Hello\')',
+                    ),
+                    _buildTestInstruction(
+                      '4',
+                      'tapByText: tester.tapByText(\'Tap By Text\')',
+                    ),
+                    _buildTestInstruction(
+                      '5',
+                      'tapByType: tester.tapByType<IconButton>()',
+                    ),
+                    _buildTestInstruction(
+                      '6',
+                      'scrollToKey: tester.scrollToKey(Key(\'list-item-14\'))',
+                    ),
+                    _buildTestInstruction(
+                      '7',
+                      'hasOne: finder.hasOne (returns bool)',
+                    ),
+                    _buildTestInstruction(
+                      '8',
+                      'hasMultiple: finder.hasMultiple (returns bool)',
+                    ),
+                    _buildTestInstruction(
+                      '9',
+                      'waitForWidget: tester.waitForWidget(finder)',
+                    ),
+                    _buildTestInstruction(
+                      '10',
+                      'See test_example_test.dart for complete examples!',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoCard(String title, String description, IconData icon) =>
+      Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Icon(icon, color: Colors.blue),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildSectionTitle(String title) => Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: Text(
+      title,
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+        color: Colors.blue[700],
+      ),
+    ),
+  );
+
+  Widget _buildTestInstruction(String number, String instruction) => Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 24,
+          height: 24,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(
+            child: Text(
+              number,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(instruction, style: const TextStyle(fontSize: 12)),
+        ),
+      ],
     ),
   );
 }

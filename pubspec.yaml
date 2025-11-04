@@ -1,6 +1,6 @@
 name: flutter_test_helpers
 description: Mock data generators, test utilities, and widget testing helpers for Flutter applications. A comprehensive testing toolkit that supports all platforms including WASM.
-version: 0.0.7
+version: 0.1.0
 homepage: https://github.com/Dhia-Bechattaoui/flutter_test_helpers
 repository: https://github.com/Dhia-Bechattaoui/flutter_test_helpers
 issue_tracker: https://github.com/Dhia-Bechattaoui/flutter_test_helpers/issues
@@ -21,10 +21,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dev_dependencies:
   flutter_lints: ^6.0.0
   test: ^1.0.0
   mockito: ^5.0.0
